@@ -14,6 +14,7 @@ public class Space implements Serializable {
 
 	private static final long serialVersionUID = 542561126652957202L;
 	
+	public String id;
 	public String name;
     public String created_at;
     public String description;
