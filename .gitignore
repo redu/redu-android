@@ -1,0 +1,7 @@
+*.DS_Store
+*/bin
+*/gen
+*/FTAndroidTools_src
+/bin/
+/zxing-android-1.5_src
+/code - Copy
