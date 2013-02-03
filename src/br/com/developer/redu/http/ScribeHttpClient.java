@@ -41,7 +41,9 @@ public class ScribeHttpClient extends HttpClient {
 
     private void addUrlParams(OAuthRequest request, Map.Entry<String, String>... params){
         for (Map.Entry<String, String> pair : params){
-            request.addQuerystringParameter(pair.getKey(), pair.getValue());
+        	if(pair != null) {
+        		request.addQuerystringParameter(pair.getKey(), pair.getValue());
+        	}
         }
     }
 
