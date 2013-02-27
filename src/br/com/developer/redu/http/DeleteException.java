@@ -8,10 +8,7 @@ package br.com.developer.redu.http;
  * To change this template use File | Settings | File Templates.
  */
 public class DeleteException extends RuntimeException {
-
-	private static final long serialVersionUID = 5278010002200788932L;
-	
-	private int statusCode;
+    private int statusCode;
     public DeleteException(String error, int statusCode){
         super(error);
     }

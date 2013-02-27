@@ -1,17 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.developer.redu"
+    package="com.example.encapsuladorandroid"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="10"
         android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.encapsuladorandroid.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.encapsuladorandroid.ActInsertSubject"
+            android:label="@string/title_activity_act_insert_subject" >
+        </activity>
+        <activity
+            android:name="com.example.encapsuladorandroid.SuportFiles"
+            android:label="@string/title_activity_suport_files" >
+        </activity>
     </application>
 
 </manifest>

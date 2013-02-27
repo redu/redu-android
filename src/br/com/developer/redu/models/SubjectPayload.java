@@ -1,5 +1,9 @@
 package br.com.developer.redu.models;
 
+import br.com.developer.redu.models.CoursePayload.course;
+
+import com.google.gson.Gson;
+
 /**
  * Created with IntelliJ IDEA.
  * User: igor
@@ -8,19 +12,22 @@ package br.com.developer.redu.models;
  * To change this template use File | Settings | File Templates.
  */
 public class SubjectPayload {
-    in subject;
+    private subject subject;
 
     public SubjectPayload(String name, String description){
-        this.subject = new in(name, description);
+    	subject = new subject();
+    	subject.name = name;
+    	subject.description = description;
     }
 
-    class in{
-        String name;
-        String description;
-
-        public in(String name, String description){
-            this.name = name;
-            this.description = description;
-        }
+    class subject{
+        public String name;
+        public String description;
     }
+    public static void main(String[] args){
+        SubjectPayload sp = new SubjectPayload("testeeeee", "testeeeeetesteeeeetesteeeeetesteeeeetesteeeee");
+        Gson g = new Gson();
+        System.out.println(g.toJson(sp));
+    }
+
 }
