@@ -107,7 +107,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G, H,I> implements Redu<A,B,C,D,E,F
     	}
     	String json = "";
     	if(!new_args.isEmpty()){
-    		json = this.httpClient.get(url, new_args.toArray(new ArgPair[args.length]));
+    		json = this.httpClient.get(url, new_args.toArray(new ArgPair[new_args.size()]));
     	}else{
     		json = this.httpClient.get(url);
     	}
