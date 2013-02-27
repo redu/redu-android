@@ -8,4 +8,12 @@ package br.com.developer.redu.models;
  * To change this template use File | Settings | File Templates.
  */
 public class Thumbnail {
+    public String size;
+    public String href;
+
+    @Override
+    public String toString(){
+        String retorno = String.format("size: %s\nhref: %s", size, href);
+        return retorno;
+    }
 }
