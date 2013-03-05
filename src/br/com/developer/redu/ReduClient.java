@@ -46,6 +46,9 @@ public abstract class ReduClient<A,B,C,D,E,F,G, H,I> implements Redu<A,B,C,D,E,F
     protected Type enrollmentList;
     protected Type chatMessageList;
     protected Type chatList;
+    protected Type lectureList;
+    protected Type folderList;
+    protected Type fileList;
     
     protected Class<A> courseClass;
     protected Class<B> enrollmentClass;
@@ -56,6 +59,10 @@ public abstract class ReduClient<A,B,C,D,E,F,G, H,I> implements Redu<A,B,C,D,E,F
     protected Class<G> statusClass;
     protected Class<H> chatMessageClass;
     protected Class<I> chatClass;
+    protected Class<J> lectureClass;
+    protected Class<L> folderClass;
+    protected Class<M> fileClass;
+    
 
 
     public ReduClient(String consumerKey, String consumerSecret){
@@ -252,8 +259,13 @@ public abstract class ReduClient<A,B,C,D,E,F,G, H,I> implements Redu<A,B,C,D,E,F
 
     @Override
     public E postSubject(String spaceId, String title, String description) {
-        throw new RuntimeException("NOT SUPPORTED YET!");
-    }
+        //   throw new RuntimeException("NOT SUPPORTED YET!");
+         SubjectPayload load = new SubjectPayload(title, description);
+         String url = BASE_URL+"spaces/"+spaceId+"/subjects";
+         String json = this.gson.toJson(load);
+         return this.postUrl(url, this.subjectClass, json);
+           
+       }
 
     @Override
     public void editSubject(String subjectId, String title, String description) {
@@ -383,4 +395,33 @@ public abstract class ReduClient<A,B,C,D,E,F,G, H,I> implements Redu<A,B,C,D,E,F
     	return this.getUrl(BASE_URL+"users/"+userId+"/chats",this.chatList);
     }
     
+    public J getLecture(String lectureId){
+    	return this.getUrl(BASE_URL+"lectures/"+lectureId, this.lectureClass);
+    }
+    
+    //rodrigo - metodo para retornar json da disciplina from subject
+    public List<J> getLecturesBySubject(String subjectId) {
+        return this.getUrl(BASE_URL+"subjects/"+subjectId+"/lectures", this.lectureList);
+    }    
+    
+    //rodrigo - metodo para retornar json das pastas de uma disciplina from subject
+    public List<L> getFoldersBySpace(String spaceId) {
+        return this.getUrl(BASE_URL+"spaces/"+spaceId+"/folders", this.folderList);
+//        return this.getUrl(BASE_URL+"spaces/"+spaceId+"/files/", this.folderList);
+    }
+    public String getFolderID(String spaceId){
+    	List<Folder> f = (List<Folder>) this.getFoldersBySpace(spaceId);
+    	String folderID = f.get(0).id;
+//    	this.getUrl(BASE_URL+"spaces/"+spaceId+"/folders", this.folderClass);
+    	return folderID;
+    }
+    public L getFolder(String folderId){
+    	return this.getUrl(BASE_URL+"folders/"+folderId, this.folderClass);
+    }
+    public List<L> getFolders(String folderId){
+    	return this.getUrl(BASE_URL+"folders/"+folderId+"/folders/", this.folderList);
+    }    
+    public List<M> getFilesByFolder(String folderId) {
+        return this.getUrl(BASE_URL+"folders/"+folderId+"/files", this.fileList);
+    }
 }
