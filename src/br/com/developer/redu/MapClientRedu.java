@@ -13,8 +13,8 @@ import java.lang.reflect.Type;
  * Implementação concreta alternativa para o ReduClient, nessa classe todos os recursos são
  * representados pela classe generica StringMap que é basicamente uma accessor para jsons
  */
-public class MapClientRedu extends ReduClient<StringMap, StringMap, StringMap, StringMap, StringMap,
-        StringMap, StringMap, StringMap, StringMap, StringMap, StringMap, StringMap> {
+public class MapClientRedu extends ReduClient<StringMap, StringMap, StringMap,StringMap, StringMap,
+        StringMap, StringMap, StringMap, StringMap> {
     public MapClientRedu(String consumerKey, String consumerSecret, String pin) {
         super(consumerKey, consumerSecret, pin);
     }
@@ -40,12 +40,6 @@ public class MapClientRedu extends ReduClient<StringMap, StringMap, StringMap, S
         super.chatMessageList = stringMapListType;
         super.chatClass = StringMap.class;
         super.chatList = stringMapListType;
-        super.lectureClass = StringMap.class;
-        super.lectureList = stringMapListType;
-        super.folderClass = StringMap.class;
-        super.folderList = stringMapListType;
-        super.fileClass = StringMap.class;
-        super.fileList = stringMapListType;
-        
     }
+
 }

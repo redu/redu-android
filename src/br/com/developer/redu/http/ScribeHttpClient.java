@@ -1,12 +1,14 @@
 package br.com.developer.redu.http;
 
-import br.com.developer.redu.models.*;
-import org.scribe.model.*;
-import org.scribe.oauth.OAuthService;
-import org.scribe.builder.ServiceBuilder;
-
 import java.util.Map;
-import com.google.gson.Gson;
+
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.model.Verifier;
+import org.scribe.oauth.OAuthService;
 /**
  * Created with IntelliJ IDEA.
  * User: igor
@@ -39,7 +41,9 @@ public class ScribeHttpClient extends HttpClient {
 
     private void addUrlParams(OAuthRequest request, Map.Entry<String, String>... params){
         for (Map.Entry<String, String> pair : params){
-            request.addQuerystringParameter(pair.getKey(), pair.getValue());
+        	if(pair != null) {
+        		request.addQuerystringParameter(pair.getKey(), pair.getValue());
+        	}
         }
     }
 
