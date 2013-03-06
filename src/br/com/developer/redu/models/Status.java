@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Status {
     public String type;
+    public String logeable_type;
     public String created_at;
     public String text;
     public User user;
@@ -18,8 +19,8 @@ public class Status {
 
     @Override
     public String toString(){
-        return String.format("type: %s\ncreated_at: %s\ntext: %s\nuser: %s\nlinks: %s",
-                type, created_at,text, user, links);
+        return String.format("type: %s\nlogeable_type: %s\ncreated_at: %s\ntext: %s\nuser: %s\nlinks: %s",
+                type, logeable_type, created_at,text, user, links);
     }
 
 }
