@@ -1,5 +1,6 @@
 package br.com.developer.redu.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -9,8 +10,11 @@ import java.util.List;
  * Time: 12:21 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Course {
-    public String id;
+public class Course implements Serializable {
+
+	private static final long serialVersionUID = 7065050353626090266L;
+	
+	public String id;
     public String name;
     public String path;
     public String created_at;

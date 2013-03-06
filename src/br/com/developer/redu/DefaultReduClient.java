@@ -35,9 +35,10 @@ public class DefaultReduClient extends ReduClient<Course, Enrollment, Environmen
         super.courseList = new TypeToken<List<Course>>(){}.getType();
         super.spaceClass = Space.class;
         super.spaceList = new TypeToken<List<Space>>(){}.getType();
-        super.statusList = new TypeToken<List<Status>>() {}.getType();
         super.statusClass = Status.class;
+        super.statusList = new TypeToken<List<Status>>() {}.getType();
         super.environmentClass = Environment.class;
+        super.environmentList = new TypeToken<List<Environment>>(){}.getType();
         super.chatMessageClass = ChatMessage.class;
         super.chatMessageList= new TypeToken<List<ChatMessage>>(){}.getType();
         super.chatClass = Chat.class;

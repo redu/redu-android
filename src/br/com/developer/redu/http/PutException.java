@@ -8,7 +8,10 @@ package br.com.developer.redu.http;
  * To change this template use File | Settings | File Templates.
  */
 public class PutException extends RuntimeException {
-    private int code;
+	
+	private static final long serialVersionUID = -4503703345771473064L;
+
+	private int code;
     public PutException(String text, int code){
         super(text);
         this.code = code;

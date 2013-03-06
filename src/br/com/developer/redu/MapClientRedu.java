@@ -48,4 +48,5 @@ public class MapClientRedu extends ReduClient<StringMap, StringMap, StringMap, S
         super.fileList = stringMapListType;
         
     }
+
 }

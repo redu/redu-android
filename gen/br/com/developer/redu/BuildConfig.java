@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.example.encapsuladorandroid;
+package br.com.developer.redu;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

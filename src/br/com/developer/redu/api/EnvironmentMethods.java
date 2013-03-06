@@ -1,5 +1,7 @@
 package br.com.developer.redu.api;
 
+import java.util.List;
+
 
 /**
  * @author igor
@@ -7,6 +9,13 @@ package br.com.developer.redu.api;
  * @param <T> - Tipo do AVA
  */
 public interface EnvironmentMethods<T> {
+	
+	/**
+	 * Retorna a lista de AVAs que o usuário participa.
+	 * 
+	 * @return Uma lista de AVAs
+	 */
+	public List<T> getEnvironments();
 	
     /**
      * Retorna o AVA especificado. Tanto o ID quanto o path podem ser utilizados aqui, 
