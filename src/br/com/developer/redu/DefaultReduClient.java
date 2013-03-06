@@ -14,7 +14,7 @@ import java.util.List;
  * Aqui são definidos os  parametros do ReduClient  e o seus respectivos tipos no initTypes.
  */
 public class DefaultReduClient extends ReduClient<Course, Enrollment, Environment, Space, Subject,
-        User, Status, ChatMessage, Chat> {
+        User, Status, ChatMessage, Chat, Lecture, Folder, File> {
 
     public DefaultReduClient(String consumerKey, String consumerSecret) {
         super(consumerKey, consumerSecret);
@@ -43,5 +43,11 @@ public class DefaultReduClient extends ReduClient<Course, Enrollment, Environmen
         super.chatMessageList= new TypeToken<List<ChatMessage>>(){}.getType();
         super.chatClass = Chat.class;
         super.chatList = new TypeToken<List<Chat>>(){}.getType();
+        super.lectureClass = Lecture.class;
+        super.lectureList = new TypeToken<List<Lecture>>(){}.getType();
+        super.folderClass = Folder.class;
+        super.folderList = new TypeToken<List<Folder>>(){}.getType();
+        super.fileClass = File.class;
+        super.fileList = new TypeToken<List<File>>(){}.getType();
     }
 }
