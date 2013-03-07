@@ -13,7 +13,8 @@ import java.util.List;
 public class Environment implements Serializable {
 	
 	private static final long serialVersionUID = 4470256021454001735L;
-
+	
+	public String id;
 	public String name;
     public String created_at;
     public String initials;

@@ -1,5 +1,6 @@
 package br.com.developer.redu.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,9 +9,11 @@ import java.util.List;
  * Time: 10:49 AM
  */
 
-public class Lecture {
+public class Lecture implements Serializable {
     
-    public String name;
+	private static final long serialVersionUID = 26909523239548218L;
+	
+	public String name;
     public int position;
     public int rating;
     public String type;

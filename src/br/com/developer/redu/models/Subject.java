@@ -14,7 +14,7 @@ public class Subject implements Serializable {
 
 	private static final long serialVersionUID = 1278897524898211503L;
 	
-	public int id;
+	public String id;
     public String name;
     public String description;
     public String created_at;
