@@ -10,6 +10,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Status {
+	
+	public final static String ACTIVITY = "Activity";
+	public final static String HELP = "Help";
+	public final static String LOG = "Log";
+	
     public String type;
     public String logeable_type;
     public String created_at;
