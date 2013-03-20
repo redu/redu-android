@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Status {
 	
-	public final static String ACTIVITY = "Activity";
-	public final static String HELP = "Help";
-	public final static String LOG = "Log";
+	public final static String TYPE_ACTIVITY = "Activity";
+	public final static String TYPE_HELP = "Help";
+	public final static String TYPE_LOG = "Log";
 	
 	public String id;
     public String type;
@@ -21,9 +21,11 @@ public class Status {
     public String created_at;
     public String text;
     public User user;
+    public List<Link> links;
+
+    public long created_at_in_millis;
     public boolean lectureAreadySeen;
     public boolean lastSeen;
-    public List<Link> links;
 
     @Override
     public String toString(){
