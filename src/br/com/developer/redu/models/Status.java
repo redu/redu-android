@@ -11,7 +11,13 @@ import java.util.List;
  */
 public class Status {
 	
+	public final static String LOGEABLE_TYPE_LECTURE = "Lecture";
+	public final static String LOGEABLE_TYPE_SUBJECT = "Subject";
+	public final static String LOGEABLE_TYPE_COURSE = "Course";
+	public final static String LOGEABLE_TYPE_COURSE_ENROLLMENT = "CourseEnrollment";
+	
 	public final static String TYPE_ACTIVITY = "Activity";
+	public final static String TYPE_ANSWER = "Answer";
 	public final static String TYPE_HELP = "Help";
 	public final static String TYPE_LOG = "Log";
 	
