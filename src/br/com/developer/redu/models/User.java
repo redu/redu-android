@@ -24,6 +24,14 @@ public class User {
     public List<Link> links;
     public List<Thumbnail> thumbnails;
 
+    public String getCompleteName() {
+    	return new StringBuffer(first_name).append(" ").append(last_name).toString();
+	}
+    
+    public String getThumbnailUrl() {
+    	return thumbnails.get(thumbnails.size() - 1).href;
+    }
+    
     @Override
     public String toString(){
 
