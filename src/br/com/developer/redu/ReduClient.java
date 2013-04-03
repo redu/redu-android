@@ -1,4 +1,4 @@
-package br.com.developer.redu;
+  package br.com.developer.redu;
 
 import br.com.developer.redu.api.Redu;
 import br.com.developer.redu.http.ScribeHttpClient;
@@ -6,12 +6,13 @@ import br.com.developer.redu.models.*;
 import br.com.developer.redu.http.HttpClient;
 import br.com.developer.redu.http.ArgPair;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.scribe.exceptions.OAuthConnectionException;
 
 /**
  * @author igor
@@ -63,8 +64,6 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     protected Class<L> folderClass;
     protected Class<M> fileClass;
     
-
-
     public ReduClient(String consumerKey, String consumerSecret){
         this.initTypes();
         this.gson = new Gson();
@@ -83,29 +82,23 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
         this.httpClient.initClient(pin);
     }
     
-    
     /**
      * Metódo abstrato que inicializa os tipos que representam os recursos da api.
      * É preciso inicializar TODOS os recursos se não null pointers vão aparecer.
      */
     protected abstract void initTypes();
 
-//    private <T> List<T> getUrl(String url, Class<List<T>> classOfT){
-//    	String json = this.httpClient.get(url);
-//    	List<T> retorno = this.gson.fromJson(json, classOfT);
-//    	return retorno;
-//    }
-    private <T> T getUrl(String url, Class<T> classOfT){
+    private <T> T getUrl(String url, Class<T> classOfT) throws OAuthConnectionException {
         String json = this.httpClient.get(url);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
     }
-    private <T> T getUrl(String url, Class<T> classOfT, Map.Entry<String, String>... args){
+    private <T> T getUrl(String url, Class<T> classOfT, Map.Entry<String, String>... args) throws OAuthConnectionException {
         String json = this.httpClient.get(url, args);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
     }
-    private <T> T getUrl(String url, Type typeOfT, Map.Entry<String, String>... args){
+    private <T> T getUrl(String url, Type typeOfT, Map.Entry<String, String>... args) throws OAuthConnectionException {
     	List<Map.Entry<String, String>> new_args = new ArrayList<Map.Entry<String, String>>();
     	for(Map.Entry<String, String> o : args){
     		if(o.getValue() != null){
@@ -121,7 +114,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
         T retorno = this.gson.fromJson(json, typeOfT);
         return retorno;
     }
-    private <T> T getUrl(String url, Type typeOfT){
+    private <T> T getUrl(String url, Type typeOfT) throws OAuthConnectionException {
         String json = this.httpClient.get(url);
         T retorno = this.gson.fromJson(json, typeOfT);
         return retorno;
@@ -278,29 +271,29 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     }
 
     @Override
-    public F getUser(String userId) {
+    public F getUser(String userId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"users/"+userId, this.userClass);
     }
 
     @Override
-    public F getMe() {
+    public F getMe() throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"me", this.userClass);
     }
 
     @Override
-    public List<F> getUsersBySpace(String spaceId, String role) {
+    public List<F> getUsersBySpace(String spaceId, String role) throws OAuthConnectionException {
     	ArgPair arg = new ArgPair("role", role);
     	return this.getUrl(BASE_URL+"spaces/"+spaceId+"/users", this.userList, arg);
 
     }
 
     @Override
-    public G getStatus(String statusId) {
+    public G getStatus(String statusId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"statuses/"+statusId, this.statusClass);
     }
 
     @Override
-    public List<G> getAnswers(String statusId) {
+    public List<G> getAnswers(String statusId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"statuses/"+statusId+"/answers",this.statusList);
     }
 
@@ -313,21 +306,21 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     }
 
     @Override
-    public List<G> getStatusesByUser(String userId, String type, String page) {
+    public List<G> getStatusesByUser(String userId, String type, String page) throws OAuthConnectionException {
         Map.Entry<String, String> arg = new ArgPair("type", type);
         Map.Entry<String, String> arg1 = new ArgPair("page", page);
         return this.getUrl(BASE_URL+"users/"+userId+"/statuses", this.statusList, arg, arg1);
     }
 
     @Override
-    public List<G> getStatusesTimelineByUser(String userId, String type, String page) {
+    public List<G> getStatusesTimelineByUser(String userId, String type, String page) throws OAuthConnectionException {
         Map.Entry<String, String> arg = new ArgPair("type", type);
         Map.Entry<String, String> arg1 = new ArgPair("page", String.valueOf(page));
         return this.getUrl(BASE_URL+"users/"+userId+"/statuses/timeline", this.statusList, arg, arg1);
     }
 
     @Override
-    public List<G> getStatusesTimelineBySpace(String spaceId, String type, String page) {
+    public List<G> getStatusesTimelineBySpace(String spaceId, String type, String page) throws OAuthConnectionException {
         Map.Entry<String, String> arg = new ArgPair("type", type);
         Map.Entry<String, String> arg1 = new ArgPair("page", type);
         return this.getUrl(BASE_URL+"spaces/"+spaceId+"/statuses/timeline", this.statusList, arg, arg1);
@@ -342,7 +335,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     }
 
     @Override
-    public List<G> getStatusesBySpace(String spaceId, String type, String page) {
+    public List<G> getStatusesBySpace(String spaceId, String type, String page) throws OAuthConnectionException {
         Map.Entry<String, String> arg = new ArgPair("type", type);
         Map.Entry<String, String> arg1 = new ArgPair("page", type);
         return this.getUrl(BASE_URL+"spaces/"+spaceId+"/statuses", this.statusList, arg, arg1);
@@ -357,7 +350,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     }
 
     @Override
-    public List<G> getStatusesByLecture(String lectureId) {
+    public List<G> getStatusesByLecture(String lectureId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"lectures/"+lectureId+"/statuses", this.statusList);
     }
 
@@ -375,53 +368,53 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     }
     
     @Override 
-    public H getChatMessage(String chatMessageId){
+    public H getChatMessage(String chatMessageId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"chat_messages/"+chatMessageId, this.chatMessageClass);
     }
     
     @Override
-    public List<H> getChatMessagesByChat(String chatId){
+    public List<H> getChatMessagesByChat(String chatId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"chats/"+chatId+"/chat_messages", 
     			this.chatMessageList);
     }
     
     @Override
-    public I getChat(String chatId){
+    public I getChat(String chatId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"chats/"+chatId, this.chatClass);
     }
     
     @Override
-    public List<I> getChatsByUser(String userId){
+    public List<I> getChatsByUser(String userId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"users/"+userId+"/chats",this.chatList);
     }
     
-    public J getLecture(String lectureId){
+    public J getLecture(String lectureId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"lectures/"+lectureId, this.lectureClass);
     }
     
     //rodrigo - metodo para retornar json da disciplina from subject
-    public List<J> getLecturesBySubject(String subjectId) {
+    public List<J> getLecturesBySubject(String subjectId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"subjects/"+subjectId+"/lectures", this.lectureList);
     }    
     
     //rodrigo - metodo para retornar json das pastas de uma disciplina from subject
-    public List<L> getFoldersBySpace(String spaceId) {
+    public List<L> getFoldersBySpace(String spaceId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"spaces/"+spaceId+"/folders", this.folderList);
 //        return this.getUrl(BASE_URL+"spaces/"+spaceId+"/files/", this.folderList);
     }
-    public String getFolderID(String spaceId){
+    public String getFolderID(String spaceId) throws OAuthConnectionException {
     	List<Folder> f = (List<Folder>) this.getFoldersBySpace(spaceId);
     	String folderID = f.get(0).id;
 //    	this.getUrl(BASE_URL+"spaces/"+spaceId+"/folders", this.folderClass);
     	return folderID;
     }
-    public L getFolder(String folderId){
+    public L getFolder(String folderId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"folders/"+folderId, this.folderClass);
     }
-    public List<L> getFolders(String folderId){
+    public List<L> getFolders(String folderId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"folders/"+folderId+"/folders/", this.folderList);
     }    
-    public List<M> getFilesByFolder(String folderId) {
+    public List<M> getFilesByFolder(String folderId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"folders/"+folderId+"/files", this.fileList);
     }
 }

@@ -3,6 +3,7 @@ package br.com.developer.redu.http;
 import java.util.Map;
 
 import org.scribe.builder.ServiceBuilder;
+import org.scribe.exceptions.OAuthConnectionException;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
@@ -65,7 +66,7 @@ public class ScribeHttpClient extends HttpClient {
     }
 
     @Override
-    public String get(String url, Map.Entry<String, String>... params) {
+    public String get(String url, Map.Entry<String, String>... params) throws OAuthConnectionException {
         OAuthRequest request = new OAuthRequest(Verb.GET, url);
         if(params != null){
             this.addUrlParams(request, params);
