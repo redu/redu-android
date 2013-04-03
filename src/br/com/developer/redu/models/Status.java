@@ -36,6 +36,65 @@ public class Status implements Serializable {
     public boolean lectureAreadySeen;
     public boolean lastSeen;
 
+    private String getLink(String rel) {
+    	String href = null;
+    	for(Link link : links) {
+			if(link.rel.equals(rel)) {
+				href = link.href;
+				break;
+			}
+		}
+    	return href;
+    }
+    
+    /**
+     * A link example: http://www.redu.com.br/api/statuses/107070/answers
+     * @return the id of the in response to the status
+     */
+    public String getInResponseToStatusId() {
+    	String id = null;
+    	
+    	if(isTypeAnswer()) {
+    		String link = getLink("in_response_to");
+    		String[] splitted = link.split("/");
+    		id = splitted[splitted.length - 2];
+    	}
+    	
+    	return id;
+    }
+    
+    public boolean isTypeActivity() {
+    	return TYPE_ACTIVITY.equals(type);
+    }
+    
+    public boolean isTypeAnswer() {
+    	return TYPE_ANSWER.equals(type);
+    }
+    
+    public boolean isTypeHelp() {
+    	return TYPE_HELP.equals(type);
+    }
+    
+    public boolean isTypeLog() {
+    	return TYPE_LOG.equals(type);
+    }
+    
+    public boolean isLogeableTypeLecture() {
+    	return LOGEABLE_TYPE_LECTURE.equals(logeable_type);
+    }
+    
+    public boolean isLogeableTypeSubject() {
+    	return LOGEABLE_TYPE_SUBJECT.equals(logeable_type);
+    }
+    
+    public boolean isLogeableTypeCourse() {
+    	return LOGEABLE_TYPE_COURSE.equals(logeable_type);
+    }
+    
+    public boolean isLogeableTypeCourseEnrollment() {
+    	return LOGEABLE_TYPE_COURSE_ENROLLMENT.equals(logeable_type);
+    }
+    
     @Override
     public String toString(){
         return String.format("id: %s\ntype: %s\nlogeable_type: %s\ncreated_at: %s\ntext: %s\nuser: %s\nlectureAreadySeen: %s\nlastSeen: %s\nlinks: %s",
