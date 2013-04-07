@@ -18,6 +18,7 @@ public class Status implements Serializable {
 	public final static String LOGEABLE_TYPE_SUBJECT = "Subject";
 	public final static String LOGEABLE_TYPE_COURSE = "Course";
 	public final static String LOGEABLE_TYPE_COURSE_ENROLLMENT = "CourseEnrollment";
+	public final static String LOGEABLE_TYPE_FRIENDSHIP = "Friendship";
 	
 	public final static String TYPE_ACTIVITY = "Activity";
 	public final static String TYPE_ANSWER = "Answer";
@@ -54,7 +55,7 @@ public class Status implements Serializable {
     public String getInResponseToStatusId() {
     	String id = null;
     	
-    	if(isTypeAnswer()) {
+    	if(isAnswerType()) {
     		String link = getLink("in_response_to");
     		String[] splitted = link.split("/");
     		id = splitted[splitted.length - 2];
@@ -63,36 +64,74 @@ public class Status implements Serializable {
     	return id;
     }
     
-    public boolean isTypeActivity() {
+    /**
+     * http://www.redu.com.br/api/lectures/5874-introducao-a-fisica.
+     * @return Position 0: local type (User, Space ou Lecture)
+     * 			<br>Position 1: local id
+     * 			<br>Position 2: local name
+     */
+    public Statusable getStatusable() {
+    	Statusable statusable = new Statusable();
+
+    	String link = getLink("statusable");
+		
+		if(link == null) {
+			return null;
+		}
+		
+		String[] linkSplitted = link.split("/");
+		
+		statusable.type = linkSplitted[linkSplitted.length - 2];
+		
+		if(statusable.isTypeUser()) {
+			statusable.name = linkSplitted[linkSplitted.length - 1];
+			
+		} else if(statusable.isTypeLecture()) {
+			String idAndName = linkSplitted[linkSplitted.length - 1];
+			statusable.id = idAndName.substring(0, idAndName.indexOf('-'));
+			statusable.name = idAndName.substring(idAndName.indexOf('-') + 1).replaceAll("-", " ");
+	    
+		} else if(statusable.isTypeSpace()) {
+			statusable.name = linkSplitted[linkSplitted.length - 1];
+	    }
+		
+		return statusable;
+    }
+    
+    public boolean isActivityType() {
     	return TYPE_ACTIVITY.equals(type);
     }
     
-    public boolean isTypeAnswer() {
+    public boolean isAnswerType() {
     	return TYPE_ANSWER.equals(type);
     }
     
-    public boolean isTypeHelp() {
+    public boolean isHelpType() {
     	return TYPE_HELP.equals(type);
     }
     
-    public boolean isTypeLog() {
+    public boolean isLogType() {
     	return TYPE_LOG.equals(type);
     }
     
-    public boolean isLogeableTypeLecture() {
+    public boolean isLectureLogeableType() {
     	return LOGEABLE_TYPE_LECTURE.equals(logeable_type);
     }
     
-    public boolean isLogeableTypeSubject() {
+    public boolean isSubjectLogeableType() {
     	return LOGEABLE_TYPE_SUBJECT.equals(logeable_type);
     }
     
-    public boolean isLogeableTypeCourse() {
+    public boolean isCourseLogeableType() {
     	return LOGEABLE_TYPE_COURSE.equals(logeable_type);
     }
     
-    public boolean isLogeableTypeCourseEnrollment() {
+    public boolean isCourseEnrollmentLogeableType() {
     	return LOGEABLE_TYPE_COURSE_ENROLLMENT.equals(logeable_type);
+    }
+    
+    public boolean isFriendshipLogeableType() {
+    	return LOGEABLE_TYPE_FRIENDSHIP.equals(logeable_type);
     }
     
     @Override
