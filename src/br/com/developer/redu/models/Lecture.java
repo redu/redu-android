@@ -3,6 +3,8 @@ package br.com.developer.redu.models;
 import java.io.Serializable;
 import java.util.List;
 
+import android.util.Log;
+
 /**
  * User: rgcrocha
  * Date: 02/02/13
@@ -12,6 +14,12 @@ import java.util.List;
 public class Lecture implements Serializable {
     
 	private static final long serialVersionUID = 26909523239548218L;
+	
+	public final static String TYPE_CANVAS = "Canvas";
+	public final static String TYPE_DOCUMENT = "Answer";
+	public final static String TYPE_EXERCISE = "Exercise";
+	public final static String TYPE_PAGE = "Page";
+	public final static String TYPE_MEDIA = "Media";
 	
 	public String name;
     public int position;
@@ -28,10 +36,24 @@ public class Lecture implements Serializable {
 
     @Override
 	public String toString() {
-		return "Lecture [name=" + name + ", position=" + position + ", rating="
+		
+    	String attributes = "Lecture [name=" + name + ", position=" + position + ", rating="
 				+ rating + ", type=" + type + ", links=" + links
 				+ ", view_count=" + view_count + ", mimetype=" + mimetype
 				+ ", created_at=" + created_at + ", id=" + id + ", updated_at="
 				+ updated_at + "]";
+    	for (Link link : links) {
+			attributes += "Rel: "+link.rel+" Href: "+link.href;
+		}
+    	return attributes;
 	}
+    
+    public String getFilePath(){
+    	String url = null;
+		for (Link l : this.links) {
+			if (l.rel.equals("raw"))
+				url = l.href;
+		}
+		return url;
+    }
 }
