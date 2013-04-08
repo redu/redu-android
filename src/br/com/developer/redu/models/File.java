@@ -23,5 +23,12 @@ public class File {
 				+ ", created_at=" + created_at + "]";
 	}
 	
-	
+	 public String getFilePath(){
+	    	String url = null;
+			for (Link l : this.links) {
+				if (l.rel.equals("raw"))
+					url = l.href;
+			}
+			return url;
+	    }
 }
