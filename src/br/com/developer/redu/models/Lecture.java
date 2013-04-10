@@ -3,7 +3,6 @@ package br.com.developer.redu.models;
 import java.io.Serializable;
 import java.util.List;
 
-import android.util.Log;
 
 /**
  * User: rgcrocha
@@ -16,7 +15,7 @@ public class Lecture implements Serializable {
 	private static final long serialVersionUID = 26909523239548218L;
 	
 	public final static String TYPE_CANVAS = "Canvas";
-	public final static String TYPE_DOCUMENT = "Answer";
+	public final static String TYPE_DOCUMENT = "Document";
 	public final static String TYPE_EXERCISE = "Exercise";
 	public final static String TYPE_PAGE = "Page";
 	public final static String TYPE_MEDIA = "Media";
@@ -31,6 +30,8 @@ public class Lecture implements Serializable {
     public String created_at;
     public int id;
     public String updated_at;
+    public String raw;
+    public String content;
     
     
 
@@ -55,5 +56,10 @@ public class Lecture implements Serializable {
 				url = l.href;
 		}
 		return url;
+    }
+    
+    public String getFileName(){
+    	String[] temp = getFilePath().split("\\?")[0].split("/");
+    	return temp[temp.length-1];
     }
 }
