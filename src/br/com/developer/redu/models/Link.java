@@ -15,10 +15,11 @@ public class Link implements Serializable {
 	
 	public String rel;
     public String href;
-
+    public String name;
+    public String permalink;
 
     @Override
     public String toString(){
-        return String.format("rel: %s\nhref: %s", rel, href);
+        return String.format("rel: %s\nhref: %s\nname: %s\npermalink: %s", rel, href, name, permalink);
     }
 }

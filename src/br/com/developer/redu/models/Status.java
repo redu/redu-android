@@ -30,6 +30,7 @@ public class Status implements Serializable {
     public String logeable_type;
     public String created_at;
     public String text;
+    public int answers_count;
     public User user;
     public List<Link> links;
 
@@ -37,15 +38,51 @@ public class Status implements Serializable {
     public boolean lectureAreadySeen;
     public boolean lastSeen;
 
-    private String getLink(String rel) {
-    	String href = null;
-    	for(Link link : links) {
-			if(link.rel.equals(rel)) {
-				href = link.href;
+    private Link getLink(String rel) {
+    	Link link = null;
+    	for(Link l : links) {
+			if(l.rel.equals(rel)) {
+				link = l;
 				break;
 			}
 		}
-    	return href;
+    	return link;
+    }
+    
+    private String getLinkName(String rel) {
+    	Link link = getLink(rel);
+    	if(link == null) {
+    		return null;
+    	}
+    	return link.name;
+    }
+    
+    private String getLinkHref(String rel) {
+    	Link link = getLink(rel);
+    	if(link == null) {
+    		return null;
+    	}
+    	return link.href;
+    }
+    
+    public String getEnvironmentName() {
+		return getLinkName("environment");
+    }
+    
+    public String getCourseName() {
+    	return getLinkName("course");
+    }
+    
+    public String getSpaceName() {
+    	return getLinkName("space");
+    }
+    
+    public String getSubjectName() {
+    	return getLinkName("subject");
+    }
+    
+    public String getLectureName() {
+    	return getLinkName("lecture");
     }
     
     /**
@@ -56,30 +93,24 @@ public class Status implements Serializable {
     	String id = null;
     	
     	if(isAnswerType()) {
-    		String link = getLink("in_response_to");
-    		String[] splitted = link.split("/");
+    		String href = getLinkHref("in_response_to");
+    		String[] splitted = href.split("/");
     		id = splitted[splitted.length - 2];
     	}
     	
     	return id;
     }
     
-    /**
-     * http://www.redu.com.br/api/lectures/5874-introducao-a-fisica.
-     * @return Position 0: local type (User, Space ou Lecture)
-     * 			<br>Position 1: local id
-     * 			<br>Position 2: local name
-     */
     public Statusable getStatusable() {
     	Statusable statusable = new Statusable();
 
-    	String link = getLink("statusable");
+    	String href = getLinkHref("statusable");
 		
-		if(link == null) {
+		if(href == null) {
 			return null;
 		}
 		
-		String[] linkSplitted = link.split("/");
+		String[] linkSplitted = href.split("/");
 		
 		statusable.type = linkSplitted[linkSplitted.length - 2];
 		
