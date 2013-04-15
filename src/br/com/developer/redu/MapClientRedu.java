@@ -1,5 +1,8 @@
 package br.com.developer.redu;
 
+import br.com.developer.redu.models.Lecture;
+import br.com.developer.redu.models.Progress;
+
 import com.google.gson.internal.StringMap;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,7 +17,7 @@ import java.lang.reflect.Type;
  * representados pela classe generica StringMap que é basicamente uma accessor para jsons
  */
 public class MapClientRedu extends ReduClient<StringMap, StringMap, StringMap, StringMap, StringMap,
-        StringMap, StringMap, StringMap, StringMap, StringMap, StringMap, StringMap> {
+        StringMap, StringMap, StringMap, StringMap, StringMap, StringMap, StringMap, StringMap> {
     public MapClientRedu(String consumerKey, String consumerSecret, String pin) {
         super(consumerKey, consumerSecret, pin);
     }
@@ -46,6 +49,8 @@ public class MapClientRedu extends ReduClient<StringMap, StringMap, StringMap, S
         super.folderList = stringMapListType;
         super.fileClass = StringMap.class;
         super.fileList = stringMapListType;
+        super.progressClass = StringMap.class;
+        super.progressList = stringMapListType;
         
     }
 

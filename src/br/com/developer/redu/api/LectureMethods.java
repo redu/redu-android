@@ -2,6 +2,8 @@ package br.com.developer.redu.api;
 
 import java.util.List;
 
+import br.com.developer.redu.models.Lecture;
+
 /**
  * @author igor
  *
@@ -33,19 +35,19 @@ public interface LectureMethods<T> {
      * @param title - [OBRIGATÓRIO] Nome do módulo. Máximo 40 caracteres.
      * @param description - Descrição do módulo. Máximo 250 caracteres
      * @return O módulo criado.
-     *//*
-    public T postSubject(String spaceId, String title, String description);
+     */
+    public T postLecture(Lecture lecture, String spaceId, String size);
 
-    *//**
+    /**
      * Atualiza as informações do módulo.
      * @param subjectId - ID da disciplina.
      * @param title - Nome do módulo. Máximo 40 caracteres.
      * @param description - Descrição do módulo. Máximo 250 caracteres
      * @return O módulo editado.
-     *//*
+     */
     public void editSubject(String subjectId, String title, String description);
 
-    *//**
+    /**
      * Remove um módulo. Os que fazem parte do módulo não terão mais acesso às aulas.
      * @param subjectId - ID do módulo
      *//*

@@ -95,12 +95,29 @@ public class ScribeHttpClient extends HttpClient {
         }
 
         request.addPayload(payload);
-
+        
         request.addHeader("Content-Type", "application/json");
         this.service.signRequest(this.accesToken, request);
         Response r = request.send();
         return r.getBody();
     }
+    
+    @Override
+    public String postMedia(String url, byte[] payload, String size, Map.Entry<String, String>... params) {
+        OAuthRequest request = new OAuthRequest(Verb.POST, url);
+        if(params != null){
+            this.addBodyParams(request, params);
+        }
+
+        request.addPayload(payload);
+        
+        request.addHeader("Content-Type", "multipart/form-data");
+        request.addHeader("Content-Length", size);
+        this.service.signRequest(this.accesToken, request);
+        Response r = request.send();
+        return r.getBody();
+    }
+    
 
     @Override
     public void delete(String url, Map.Entry<String, String>... params) {

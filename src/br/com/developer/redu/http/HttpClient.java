@@ -1,6 +1,7 @@
 package br.com.developer.redu.http;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,5 +33,7 @@ public abstract class HttpClient {
 
     public abstract void put(String url,byte[] payload,  Map.Entry<String, String>... params);
 
+	public abstract String postMedia(String url, byte[] payload, String size, Entry<String, String>[] params);
 
 }
+

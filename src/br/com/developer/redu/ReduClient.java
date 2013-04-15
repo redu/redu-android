@@ -32,7 +32,7 @@ import org.scribe.exceptions.OAuthConnectionException;
  * @param <H> Tipo de ChatMessage
  * @param <I> Tipo de Chat
  */
-public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,D,E,F,G,H,I,J,L,M> {
+public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,C,D,E,F,G,H,I,J,L,M,N> {
 
     private HttpClient httpClient;
     private final String BASE_URL="http://www.redu.com.br/api/";
@@ -50,6 +50,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     protected Type lectureList;
     protected Type folderList;
     protected Type fileList;
+    protected Type progressList;
     
     protected Class<A> courseClass;
     protected Class<B> enrollmentClass;
@@ -63,6 +64,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     protected Class<J> lectureClass;
     protected Class<L> folderClass;
     protected Class<M> fileClass;
+    protected Class<N> progressClass;
     
     public ReduClient(String consumerKey, String consumerSecret){
         this.initTypes();
@@ -122,6 +124,12 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
 
     private <T> T postUrl(String url, Class<T> classOfT, String payload, Map.Entry<String, String>... args){
         String json = this.httpClient.post(url, payload.getBytes(), args);
+        T retorno = this.gson.fromJson(json, classOfT);
+        return retorno;
+    }
+    
+    private <T> T postMedia(String url, Class<T> classOfT, String payload, String size, Map.Entry<String, String>... args){
+        String json = this.httpClient.postMedia(url, payload.getBytes(), size, args);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
     }
@@ -395,7 +403,14 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     //rodrigo - metodo para retornar json da disciplina from subject
     public List<J> getLecturesBySubject(String subjectId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"subjects/"+subjectId+"/lectures", this.lectureList);
-    }    
+    }
+    
+    public J postLecture(Lecture lecture, String spaceId, String size){
+    	String url = BASE_URL+"subjects/"+spaceId+"/lectures";
+    	String json = this.gson.toJson(lecture);
+    	return this.postMedia(url, this.lectureClass, json, size);
+    }
+    
     
     //rodrigo - metodo para retornar json das pastas de uma disciplina from subject
     public List<L> getFoldersBySpace(String spaceId) throws OAuthConnectionException {
@@ -417,4 +432,17 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M> implements Redu<A,B,C,
     public List<M> getFilesByFolder(String folderId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"folders/"+folderId+"/files", this.fileList);
     }
+    
+    @Override
+	public N getProgress(String lectureId) {
+        String url = BASE_URL+"lectures/"+lectureId+"/progress";
+        return this.getUrl(url, this.progressClass);	
+	}
+	@Override
+	public N editProgress(Progress progress, String lectureId) {
+        String url = BASE_URL+"lectures/"+lectureId+"/progress";
+        String json = this.gson.toJson(progress);
+        return this.postUrl(url, this.progressClass, json);
+	}
+	
 }
