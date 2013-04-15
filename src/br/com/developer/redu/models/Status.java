@@ -34,7 +34,8 @@ public class Status implements Serializable {
     public User user;
     public List<Link> links;
 
-    public long created_at_in_millis;
+    public long createdAtInMillis;
+    public long lastSeenAtInMillis;
     public boolean lectureAreadySeen;
     public boolean lastSeen;
 
