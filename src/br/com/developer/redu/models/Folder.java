@@ -1,5 +1,6 @@
 package br.com.developer.redu.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,8 +9,12 @@ import java.util.List;
  * Time: 07:49 AM
  */
 
-public class Folder {
+public class Folder implements Serializable {
     
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1915644207862608981L;
 	public String id;
     public String name;
     public List<Link> links;
