@@ -62,4 +62,13 @@ public class Lecture implements Serializable {
     	String[] temp = getFilePath().split("\\?")[0].split("/");
     	return temp[temp.length-1];
     }
+    
+    public String getSelfLink(){
+    	String url = null;
+		for (Link l : this.links) {
+			if (l.rel.equals("self_link"))
+				url = l.href;
+		}
+		return url;
+    }
 }

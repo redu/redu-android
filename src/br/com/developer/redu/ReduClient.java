@@ -426,6 +426,15 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     public L getFolder(String folderId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"folders/"+folderId, this.folderClass);
     }
+    
+    @Override
+    public L postFolder(String name, String folderId) {
+        FolderPayload load = new FolderPayload(name);
+        String url = BASE_URL+"folders/"+folderId+"/folders";
+        String json = this.gson.toJson(load);
+        return this.postUrl(url, this.folderClass, json);
+    }
+    
     public List<L> getFolders(String folderId) throws OAuthConnectionException {
     	return this.getUrl(BASE_URL+"folders/"+folderId+"/folders/", this.folderList);
     }    

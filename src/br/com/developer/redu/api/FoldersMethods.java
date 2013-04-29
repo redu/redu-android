@@ -17,6 +17,7 @@ public interface FoldersMethods<T> {
 	public String getFolderID(String spaceId);
 	public T getFolder(String folderId);
 	public List<T> getFolders(String folderId);
+	public T postFolder(String name, String folderId);
 
 
 }
