@@ -326,6 +326,14 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
         Map.Entry<String, String> arg1 = new ArgPair("page", String.valueOf(page));
         return this.getUrl(BASE_URL+"users/"+userId+"/statuses/timeline", this.statusList, arg, arg1);
     }
+    
+    @Override
+    public List<G> getStatusesTimelineLogByUser(String userId, String logeableType, String page) throws OAuthConnectionException {
+    	Map.Entry<String, String> arg = new ArgPair("type", Status.TYPE_LOG);
+    	Map.Entry<String, String> arg1 = new ArgPair("logeable_type", logeableType);
+    	Map.Entry<String, String> arg2 = new ArgPair("page", String.valueOf(page));
+    	return this.getUrl(BASE_URL+"users/"+userId+"/statuses/timeline", this.statusList, arg, arg1, arg2);
+    }
 
     @Override
     public List<G> getStatusesTimelineBySpace(String spaceId, String type, String page) throws OAuthConnectionException {
