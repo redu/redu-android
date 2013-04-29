@@ -2,6 +2,8 @@ package br.com.developer.redu.api;
 
 import java.util.List;
 
+import org.scribe.exceptions.OAuthConnectionException;
+
 /**
  * @author igor
  *
@@ -53,7 +55,19 @@ public interface WallMethods<T> {
      * @return Uma lista de statuses
      */
     public List<T> getStatusesTimelineByUser(String userId, String type, String page);
-
+    
+    /**
+     * Retorna todos os status do usuário. Também é possível filtrar pelo tipo. 
+     * Caso :type não seja informado é retornado os status do tipo Activity, Help e Log do usuário.
+     * Retorna todos os status do usuário e dos cursos que o usuário faz parte. Diferente do getStatusesByUser, 
+     * aqui são mostradas todas as movimentações que interessam ao usuário. 
+     * É igual ao que se vê na página inicial do Redu.
+     * @param userId - ID do usuário em questão
+     * @param logeableType - [OPICIONAL] Filtragem pelo tipo de status. Pode ser do Enrollment, Friendship, Course, Subject ou Lecture
+     * @param page - [OPICIONAL] Paginação dos resultados. As páginas possuem 25 entradas. Padrão é 1. Numérico
+     * @return Uma lista de statuses
+     */
+    public List<T> getStatusesTimelineLogByUser(String userId, String logeableType, String page);
     
     /**
      * Retorna todos os status da disciplina e das suas aulas. Diferente do getStatusesBySpace, 
