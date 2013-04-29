@@ -17,7 +17,7 @@ public class Status implements Serializable {
 	public final static String LOGEABLE_TYPE_LECTURE = "Lecture";
 	public final static String LOGEABLE_TYPE_SUBJECT = "Subject";
 	public final static String LOGEABLE_TYPE_COURSE = "Course";
-	public final static String LOGEABLE_TYPE_COURSE_ENROLLMENT = "CourseEnrollment";
+	public final static String LOGEABLE_TYPE_ENROLLMENT = "Enrollment";
 	public final static String LOGEABLE_TYPE_FRIENDSHIP = "Friendship";
 	
 	public final static String TYPE_ACTIVITY = "Activity";
@@ -158,8 +158,8 @@ public class Status implements Serializable {
     	return LOGEABLE_TYPE_COURSE.equals(logeable_type);
     }
     
-    public boolean isCourseEnrollmentLogeableType() {
-    	return LOGEABLE_TYPE_COURSE_ENROLLMENT.equals(logeable_type);
+    public boolean isEnrollmentLogeableType() {
+    	return LOGEABLE_TYPE_ENROLLMENT.equals(logeable_type);
     }
     
     public boolean isFriendshipLogeableType() {
