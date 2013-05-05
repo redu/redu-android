@@ -20,14 +20,18 @@ public class Environment implements Serializable {
     public String initials;
     public String path;
     public String courses_count;
+    public List<Thumbnail> thumbnails;
 
     public List<Link> links;
 
+    public String getThumbnailUrl() {
+    	return thumbnails.get(thumbnails.size() - 1).href;
+    }
+    
     @Override
     public String toString(){
         return String.format("name: %s\ncreated_at: %s\ninitials: %s\npath: %s\ncourse_count: %s\nlinks: %s",
                 name, created_at,initials, path,courses_count, links);
-
     }
 
 }
