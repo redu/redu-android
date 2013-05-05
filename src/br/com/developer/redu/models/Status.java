@@ -67,23 +67,23 @@ public class Status implements Serializable {
     }
     
     public String getEnvironmentName() {
-		return getLinkName("environment");
+		return getLinkName(Link.REL_ENVIRONMENT);
     }
     
     public String getCourseName() {
-    	return getLinkName("course");
+    	return getLinkName(Link.REL_COURSE);
     }
     
     public String getSpaceName() {
-    	return getLinkName("space");
+    	return getLinkName(Link.REL_SPACE);
     }
     
     public String getSubjectName() {
-    	return getLinkName("subject");
+    	return getLinkName(Link.REL_SUBJECT);
     }
     
     public String getLectureName() {
-    	return getLinkName("lecture");
+    	return getLinkName(Link.REL_LECTURE);
     }
     
     /**
@@ -94,7 +94,7 @@ public class Status implements Serializable {
     	String id = null;
     	
     	if(isAnswerType()) {
-    		String href = getLinkHref("in_response_to");
+    		String href = getLinkHref(Link.REL_IN_RESPONSE_TO);
     		String[] splitted = href.split("/");
     		id = splitted[splitted.length - 2];
     	}
@@ -105,7 +105,7 @@ public class Status implements Serializable {
     public Statusable getStatusable() {
     	Statusable statusable = new Statusable();
 
-    	String href = getLinkHref("statusable");
+    	String href = getLinkHref(Link.REL_STATUSABLE);
 		
 		if(href == null) {
 			return null;

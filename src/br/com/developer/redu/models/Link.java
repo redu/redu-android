@@ -13,6 +13,14 @@ public class Link implements Serializable {
 
 	private static final long serialVersionUID = -1206498696461639631L;
 	
+	public static final String REL_ENVIRONMENT = "environment";
+	public static final String REL_COURSE = "course";
+	public static final String REL_SPACE = "space";
+	public static final String REL_SUBJECT = "subject";
+	public static final String REL_LECTURE = "lecture";
+	public static final String REL_IN_RESPONSE_TO = "in_response_to";
+	public static final String REL_STATUSABLE = "statusable";
+	
 	public String rel;
     public String href;
     public String name;
