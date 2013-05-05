@@ -13,6 +13,7 @@ public class Enrollment {
     public String id;
     public String state;
     public String created_at;
+    public String role;
     public List<Link> links;
 
     @Override

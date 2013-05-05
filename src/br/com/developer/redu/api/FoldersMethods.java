@@ -18,6 +18,8 @@ public interface FoldersMethods<T> {
 	public T getFolder(String folderId);
 	public List<T> getFolders(String folderId);
 	public T postFolder(String name, String folderId);
+	public void deleteFolder(String folderId);
+	public void editFolder(String name, String folderId);
 
 
 }
