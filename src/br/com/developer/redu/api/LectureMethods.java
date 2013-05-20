@@ -36,7 +36,7 @@ public interface LectureMethods<T> {
      * @param description - Descrição do módulo. Máximo 250 caracteres
      * @return O módulo criado.
      */
-    public T postLecture(Lecture lecture, String spaceId, String size);
+    public T postLecture(Lecture lecture, String spaceId, java.io.File file);
 
     /**
      * Atualiza as informações do módulo.

@@ -1,5 +1,9 @@
 package br.com.developer.redu.http;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import org.scribe.builder.ServiceBuilder;
@@ -10,6 +14,9 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
+
+import android.util.Log;
+import br.com.developer.redu.models.Lecture;
 /**
  * Created with IntelliJ IDEA.
  * User: igor
@@ -103,18 +110,29 @@ public class ScribeHttpClient extends HttpClient {
     }
     
     @Override
-    public String postMedia(String url, byte[] payload, String size, Map.Entry<String, String>... params) {
+    public String postMedia(String url, Lecture lecture, java.io.File file, Map.Entry<String, String>... params) {
         OAuthRequest request = new OAuthRequest(Verb.POST, url);
         if(params != null){
             this.addBodyParams(request, params);
         }
-
-        request.addPayload(payload);
-        
+        //filename,filetype, binario, nome da aula, type 
+        String template = "Content-Disposition: form-data; name=\"lecture[media]\"; filename=\"%s\"\nContent-Type: %s\n\n%s\n\nContent-Disposition: form-data; name=\"lecture[name]\"\n%s\n\nContent-Disposition: form-data; name=\"lecture[type]\"\n%s";
         request.addHeader("Content-Type", "multipart/form-data");
-        request.addHeader("Content-Length", size);
+        request.addHeader("Content-Length", Long.toString(file.length()));
+        byte[] bytes;
+        try {
+			bytes = read(file);
+			request.addPayload(String.format(template, file.getName(), "image/png", bytes.toString(), lecture.name, lecture.type));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        Log.i("TOKEN", this.accesToken.getToken());
         this.service.signRequest(this.accesToken, request);
+        Log.i("RESQUEST", request.toString());
+        Log.i("RESQUEST-HEADERS", request.getHeaders().toString());
+        Log.i("RESQUEST-BODY", request.getBodyContents().toString());
         Response r = request.send();
+        Log.i("RESPONSE", Integer.toString(r.getCode()));
         return r.getBody();
     }
     
@@ -146,6 +164,31 @@ public class ScribeHttpClient extends HttpClient {
             throw new PutException("Invalid return code", r.getCode());
         }
 
+    }
+    
+    public byte[] read(File file) throws IOException {
+
+       /* if ( file.length() > MAX_FILE_SIZE ) {
+            throw new FileTooBigException(file);
+        }*/
+
+
+        byte []buffer = new byte[(int) file.length()];
+        InputStream ios = null;
+        try {
+            ios = new FileInputStream(file);
+            if ( ios.read(buffer) == -1 ) {
+                throw new IOException("EOF reached while trying to read the whole file");
+            }        
+        } finally { 
+            try {
+                 if ( ios != null ) 
+                      ios.close();
+            } catch ( IOException e) {
+            }
+        }
+
+        return buffer;
     }
 
 

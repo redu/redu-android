@@ -1,10 +1,12 @@
 package br.com.developer.redu.api;
 
+import java.util.List;
+
 import br.com.developer.redu.models.Progress;
 
 public interface ProgressMethods<T> {
 	
-	public T getProgress(String lectureId);
-	public T editProgress(Progress progress, String lectureId);
+	public List<T> getProgressByLecture(String lectureId, String userId);
+	public void putProgress(Progress progress);
 }
 

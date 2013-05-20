@@ -128,8 +128,8 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
         return retorno;
     }
     
-    private <T> T postMedia(String url, Class<T> classOfT, String payload, String size, Map.Entry<String, String>... args){
-        String json = this.httpClient.postMedia(url, payload.getBytes(), size, args);
+    private <T> T postMedia(String url, Class<T> classOfT, Lecture lecture, java.io.File file, Map.Entry<String, String>... args){
+        String json = this.httpClient.postMedia(url, lecture, file, args);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
     }
@@ -413,10 +413,9 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
         return this.getUrl(BASE_URL+"subjects/"+subjectId+"/lectures", this.lectureList);
     }
     
-    public J postLecture(Lecture lecture, String spaceId, String size){
-    	String url = BASE_URL+"subjects/"+spaceId+"/lectures";
-    	String json = this.gson.toJson(lecture);
-    	return this.postMedia(url, this.lectureClass, json, size);
+    public J postLecture(Lecture lecture, String subjectId, java.io.File file){
+    	String url = BASE_URL+"subjects/"+subjectId+"/lectures";
+    	return this.postMedia(url, this.lectureClass, lecture, file);
     }
     
     
@@ -464,15 +463,15 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     }
     
     @Override
-	public N getProgress(String lectureId) {
-        String url = BASE_URL+"lectures/"+lectureId+"/progress";
-        return this.getUrl(url, this.progressClass);	
+	public List<N> getProgressByLecture(String lectureId, String userId) {
+        String url = BASE_URL+"users/"+userId+"/progress?lectures_ids[]="+lectureId;
+        return this.getUrl(url, this.progressList);
 	}
 	@Override
-	public N editProgress(Progress progress, String lectureId) {
-        String url = BASE_URL+"lectures/"+lectureId+"/progress";
-        String json = this.gson.toJson(progress);
-        return this.postUrl(url, this.progressClass, json);
+	public void putProgress(Progress progress) {
+        ProgressPayload load = new ProgressPayload(progress.id,progress.finalized);
+        byte [] json = this.gson.toJson(load).getBytes();
+        this.httpClient.put(BASE_URL+"progress/"+progress.id, json);
 	}
 	
 }
