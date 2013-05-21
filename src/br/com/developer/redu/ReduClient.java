@@ -181,6 +181,17 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     public List<B> getEnrollmentsByCourse(String courseId) {
         return this.getUrl(BASE_URL+"courses/"+courseId+"/enrollments", this.enrollmentList);
     }
+    
+    @Override
+    public B getEnrollmentUserAtCourse(String userId, String courseId) {
+    	List<B> b = this.getUrl(BASE_URL+"users/"+userId+"/enrollments?courses_ids[]="+courseId, this.enrollmentList);
+    	if (b != null) {
+    		return b.get(0);
+		}else{
+			return null;
+		}
+        
+    }
 
     @Override
     public void deleteEnrollment(String enrollmentId) {
@@ -469,7 +480,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
 	}
 	@Override
 	public void putProgress(Progress progress) {
-        ProgressPayload load = new ProgressPayload(progress.id,progress.finalized);
+        ProgressPayload load = new ProgressPayload(progress.id,"true");
         byte [] json = this.gson.toJson(load).getBytes();
         this.httpClient.put(BASE_URL+"progress/"+progress.id, json);
 	}

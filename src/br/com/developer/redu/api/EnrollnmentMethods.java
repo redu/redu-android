@@ -48,4 +48,7 @@ public interface EnrollnmentMethods<T> {
      * @param enrollmentId - ID ou path do curso
      */
     public void deleteEnrollment(String enrollmentId);
+    
+    public T getEnrollmentUserAtCourse(String userId, String courseId);
+    
 }
