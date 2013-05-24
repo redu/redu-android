@@ -233,11 +233,10 @@ public class Status implements Serializable {
 
 	// --- breadcrumbs
 	public List<String> getBreadcrumbs() {
-		List<String> crumbs = null;
+		List<String> crumbs = new ArrayList<String>();
 
 		String environment = getEnvironmentName();
 		if (environment != null) {
-			crumbs = new ArrayList<String>();
 			crumbs.add(environment);
 
 			String course = getCourseName();
@@ -266,6 +265,9 @@ public class Status implements Serializable {
 
 	public String getLastBreadcrumb() {
 		List<String> crumbs = getBreadcrumbs();
+		if(crumbs.size() == 0) {
+			return null;
+		}
 		return crumbs.get(crumbs.size() - 1);
 	}
 
