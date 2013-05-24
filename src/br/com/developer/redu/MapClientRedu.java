@@ -1,13 +1,10 @@
 package br.com.developer.redu;
 
-import br.com.developer.redu.models.Lecture;
-import br.com.developer.redu.models.Progress;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import com.google.gson.internal.StringMap;
 import com.google.gson.reflect.TypeToken;
-
-import java.util.List;
-import java.lang.reflect.Type;
 
 
 /**

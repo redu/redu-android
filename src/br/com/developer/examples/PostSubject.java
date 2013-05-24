@@ -1,13 +1,6 @@
 package br.com.developer.examples;
 
-import java.util.List;
-
 import br.com.developer.redu.DefaultReduClient;
-import br.com.developer.redu.models.Course;
-import br.com.developer.redu.models.Environment;
-import br.com.developer.redu.models.Space;
-import br.com.developer.redu.models.Status;
-import br.com.developer.redu.models.Subject;
 
 public class PostSubject {
 	private static final String CONSUMER_KEY = "YzbH0ulBcOjXSPtmhJuEHNFFf6eZGiamQeOBQhU1";

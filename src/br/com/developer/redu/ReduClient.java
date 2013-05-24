@@ -1,18 +1,30 @@
   package br.com.developer.redu;
 
-import br.com.developer.redu.api.Redu;
-import br.com.developer.redu.http.ScribeHttpClient;
-import br.com.developer.redu.models.*;
-import br.com.developer.redu.http.HttpClient;
-import br.com.developer.redu.http.ArgPair;
-import com.google.gson.Gson;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.scribe.exceptions.OAuthConnectionException;
+
+import br.com.developer.redu.api.Redu;
+import br.com.developer.redu.http.ArgPair;
+import br.com.developer.redu.http.HttpClient;
+import br.com.developer.redu.http.ScribeHttpClient;
+import br.com.developer.redu.models.CoursePayload;
+import br.com.developer.redu.models.EnrollmentPayload;
+import br.com.developer.redu.models.EnvironmentPayload;
+import br.com.developer.redu.models.Folder;
+import br.com.developer.redu.models.FolderPayload;
+import br.com.developer.redu.models.Lecture;
+import br.com.developer.redu.models.Progress;
+import br.com.developer.redu.models.ProgressPayload;
+import br.com.developer.redu.models.SpacePayload;
+import br.com.developer.redu.models.Status;
+import br.com.developer.redu.models.StatusPayload;
+import br.com.developer.redu.models.SubjectPayload;
+
+import com.google.gson.Gson;
 
 /**
  * @author igor

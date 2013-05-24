@@ -1,10 +1,22 @@
 package br.com.developer.redu;
 
-import br.com.developer.redu.models.*;
+import java.util.List;
+
+import br.com.developer.redu.models.Chat;
+import br.com.developer.redu.models.ChatMessage;
+import br.com.developer.redu.models.Course;
+import br.com.developer.redu.models.Enrollment;
+import br.com.developer.redu.models.Environment;
+import br.com.developer.redu.models.File;
+import br.com.developer.redu.models.Folder;
+import br.com.developer.redu.models.Lecture;
+import br.com.developer.redu.models.Progress;
+import br.com.developer.redu.models.Space;
+import br.com.developer.redu.models.Status;
+import br.com.developer.redu.models.Subject;
+import br.com.developer.redu.models.User;
 
 import com.google.gson.reflect.TypeToken;
-
-import java.util.List;
 
 
 /**

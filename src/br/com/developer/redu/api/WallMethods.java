@@ -2,8 +2,6 @@ package br.com.developer.redu.api;
 
 import java.util.List;
 
-import org.scribe.exceptions.OAuthConnectionException;
-
 /**
  * @author igor
  *

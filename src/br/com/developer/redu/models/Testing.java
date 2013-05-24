@@ -1,8 +1,8 @@
 package br.com.developer.redu.models;
 
-import br.com.developer.redu.DefaultReduClient;
-
 import java.util.Scanner;
+
+import br.com.developer.redu.DefaultReduClient;
 
 /**
  * Created with IntelliJ IDEA.
