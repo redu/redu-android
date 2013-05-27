@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLConnection;
 import java.util.Map;
 
 import org.scribe.builder.ServiceBuilder;
@@ -111,12 +113,29 @@ public class ScribeHttpClient extends HttpClient {
     
     @Override
     public String postMedia(String url, Lecture lecture, java.io.File file, Map.Entry<String, String>... params) {
-        OAuthRequest request = new OAuthRequest(Verb.POST, url);
-        if(params != null){
-            this.addBodyParams(request, params);
-        }
+		try {
+			Entity entity = new Entity();
+			Log.i("FileNAME", file.getName());
+			Log.i("FileNAME", file.getAbsolutePath());
+			Log.i("FileNAME", file.getCanonicalPath());
+			Log.i("FileNAME", file.getParent());
+			
+			entity.addPart("lecture[media]", file, URLConnection.guessContentTypeFromName(file.getName()));
+			entity.addPart("lecture[name]", lecture.name);
+			entity.addPart("lecture[type]", lecture.type);
+			MultipartRequest request = new MultipartRequest(url, this.accesToken.getToken());
+			request.setEntity(entity);
+			Response r = request.send();
+			Log.i("RESPONSE", Integer.toString(r.getCode()));
+	        return r.getBody();
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
         //filename,filetype, binario, nome da aula, type 
-        String template = "Content-Disposition: form-data; name=\"lecture[media]\"; filename=\"%s\"\nContent-Type: %s\n\n%s\n\nContent-Disposition: form-data; name=\"lecture[name]\"\n%s\n\nContent-Disposition: form-data; name=\"lecture[type]\"\n%s";
+        /*String template = "Content-Disposition: form-data; name=\"lecture[media]\"; filename=\"%s\"\nContent-Type: %s\n\n%s\n\nContent-Disposition: form-data; name=\"lecture[name]\"\n%s\n\nContent-Disposition: form-data; name=\"lecture[type]\"\n%s";
         request.addHeader("Content-Type", "multipart/form-data");
         request.addHeader("Content-Length", Long.toString(file.length()));
         byte[] bytes;
@@ -133,7 +152,7 @@ public class ScribeHttpClient extends HttpClient {
         Log.i("RESQUEST-BODY", request.getBodyContents().toString());
         Response r = request.send();
         Log.i("RESPONSE", Integer.toString(r.getCode()));
-        return r.getBody();
+        return r.getBody();*/
     }
     
 
