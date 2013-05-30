@@ -36,6 +36,8 @@ public abstract class HttpClient {
     public abstract void put(String url,byte[] payload,  Map.Entry<String, String>... params);
 
 	public abstract String postMedia(String url, Lecture lecture, java.io.File file, Entry<String, String>[] params);
+	
+	public abstract String postMedia(String url, java.io.File file, Entry<String, String>[] params);
 
 }
 

@@ -155,6 +155,24 @@ public class ScribeHttpClient extends HttpClient {
         return r.getBody();*/
     }
     
+    @Override
+    public String postMedia(String url, java.io.File file, Map.Entry<String, String>... params) {
+		try {
+			Entity entity = new Entity();
+			entity.addPart("file[content]", file, URLConnection.guessContentTypeFromName(file.getName()));
+			MultipartRequest request = new MultipartRequest(url, this.accesToken.getToken());
+			request.setEntity(entity);
+			Response r = request.send();
+			Log.i("RESPONSE", Integer.toString(r.getCode()));
+	        return r.getBody();
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+    }
+    
 
     @Override
     public void delete(String url, Map.Entry<String, String>... params) {

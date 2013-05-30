@@ -14,6 +14,7 @@ import br.com.developer.redu.http.ScribeHttpClient;
 import br.com.developer.redu.models.CoursePayload;
 import br.com.developer.redu.models.EnrollmentPayload;
 import br.com.developer.redu.models.EnvironmentPayload;
+import br.com.developer.redu.models.File;
 import br.com.developer.redu.models.Folder;
 import br.com.developer.redu.models.FolderPayload;
 import br.com.developer.redu.models.Lecture;
@@ -142,6 +143,12 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     
     private <T> T postMedia(String url, Class<T> classOfT, Lecture lecture, java.io.File file, Map.Entry<String, String>... args){
         String json = this.httpClient.postMedia(url, lecture, file, args);
+        T retorno = this.gson.fromJson(json, classOfT);
+        return retorno;
+    }
+    
+    private <T> T postMedia(String url, Class<T> classOfT, java.io.File file, Map.Entry<String, String>... args){
+        String json = this.httpClient.postMedia(url, file, args);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
     }
@@ -483,6 +490,12 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     
     public List<M> getFilesByFolder(String folderId) throws OAuthConnectionException {
         return this.getUrl(BASE_URL+"folders/"+folderId+"/files", this.fileList);
+    }
+    
+    @Override
+    public M postFile(String folderId, java.io.File file){
+    	String url = BASE_URL+"folders/"+folderId+"/files";
+    	return this.postMedia(url, this.fileClass, file);
     }
     
     @Override

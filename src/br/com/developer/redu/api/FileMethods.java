@@ -2,10 +2,12 @@ package br.com.developer.redu.api;
 
 import java.util.List;
 
+import br.com.developer.redu.models.File;
+
 /**
- * @author rgcrocha
+ * @author thiagosoara
  *
- * @param <T> - Tipo do Space
+ * 
  */
 public interface FileMethods<T> {
 
@@ -14,6 +16,6 @@ public interface FileMethods<T> {
 	 * @param folderId - ID pasta
 	 */
 	public List<T> getFilesByFolder(String folderId);
-
+	public T postFile(String folderId, java.io.File file );
 
 }
