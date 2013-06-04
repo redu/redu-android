@@ -182,7 +182,7 @@ public class ScribeHttpClient extends HttpClient {
         }
         this.service.signRequest(this.accesToken, request);
         Response r = request.send();
-        if (!(r.getCode() == 200)){
+        if (!(r.getCode() == 204)){
             throw new DeleteException("Invalid return code", r.getCode());
         }
     }
@@ -197,7 +197,7 @@ public class ScribeHttpClient extends HttpClient {
         request.addHeader("Content-Type", "application/json");
         this.service.signRequest(this.accesToken, request);
         Response r = request.send();
-        if(!(r.getCode() == 200)){
+        if(!(r.getCode() == 204)){
             throw new PutException("Invalid return code", r.getCode());
         }
 
