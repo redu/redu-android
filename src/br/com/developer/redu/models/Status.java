@@ -36,6 +36,7 @@ public class Status implements Serializable {
 	public long lastSeenAtInMillis;
 	public boolean lectureAreadySeen;
 	public boolean lastSeen;
+	public boolean ignorableInSync;
 
 	private Link getLink(String rel) {
 		Link link = null;
