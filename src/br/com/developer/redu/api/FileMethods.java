@@ -17,5 +17,6 @@ public interface FileMethods<T> {
 	 */
 	public List<T> getFilesByFolder(String folderId);
 	public T postFile(String folderId, java.io.File file );
+	public void deleteFile(String fileId);
 
 }

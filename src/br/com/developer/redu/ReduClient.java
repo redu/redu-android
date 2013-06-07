@@ -505,6 +505,11 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     }
     
     @Override
+    public void deleteFile(String fileId) {
+        this.httpClient.delete(BASE_URL+"files/"+fileId);
+    }
+    
+    @Override
 	public List<N> getProgressByLecture(String lectureId, String userId) {
         String url = BASE_URL+"users/"+userId+"/progress?lectures_ids[]="+lectureId;
         return this.getUrl(url, this.progressList);
