@@ -20,6 +20,8 @@ public interface LectureMethods<T> {
 
     public List<T> getLecturesBySubject(String subjectId);
     
+    public void removeLecture(String lectureId);
+    
     
     /**
      * Retorna os módulos de uma disciplina.

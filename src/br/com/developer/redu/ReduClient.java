@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.scribe.exceptions.OAuthConnectionException;
 
+import android.graphics.Paint.Join;
+import android.util.Log;
 import br.com.developer.redu.api.Redu;
 import br.com.developer.redu.http.ArgPair;
 import br.com.developer.redu.http.HttpClient;
@@ -448,6 +450,10 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     	return this.postMedia(url, this.lectureClass, lecture, file);
     }
     
+    @Override
+    public void removeLecture(String lectureId) {
+        this.httpClient.delete(BASE_URL+"lectures/"+lectureId);
+    }
     
     //rodrigo - metodo para retornar json das pastas de uma disciplina from subject
     public List<L> getFoldersBySpace(String spaceId) throws OAuthConnectionException {
@@ -505,9 +511,8 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
 	}
 	@Override
 	public void putProgress(Progress progress) {
-        ProgressPayload load = new ProgressPayload(progress.id,"true");
+        ProgressPayload load = new ProgressPayload(progress.finalized.equals("false") ? "true" : "false");
         byte [] json = this.gson.toJson(load).getBytes();
         this.httpClient.put(BASE_URL+"progress/"+progress.id, json);
 	}
-	
 }
