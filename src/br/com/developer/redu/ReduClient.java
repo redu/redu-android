@@ -1,5 +1,6 @@
   package br.com.developer.redu;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,13 +144,13 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
         return retorno;
     }
     
-    private <T> T postMedia(String url, Class<T> classOfT, Lecture lecture, java.io.File file, Map.Entry<String, String>... args){
+    private <T> T postMedia(String url, Class<T> classOfT, Lecture lecture, java.io.File file, Map.Entry<String, String>... args) throws IOException{
         String json = this.httpClient.postMedia(url, lecture, file, args);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
     }
     
-    private <T> T postMedia(String url, Class<T> classOfT, java.io.File file, Map.Entry<String, String>... args){
+    private <T> T postMedia(String url, Class<T> classOfT, java.io.File file, Map.Entry<String, String>... args) throws IOException{
         String json = this.httpClient.postMedia(url, file, args);
         T retorno = this.gson.fromJson(json, classOfT);
         return retorno;
@@ -445,7 +446,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
         return this.getUrl(BASE_URL+"subjects/"+subjectId+"/lectures", this.lectureList);
     }
     
-    public J postLecture(Lecture lecture, String subjectId, java.io.File file){
+    public J postLecture(Lecture lecture, String subjectId, java.io.File file) throws IOException{
     	String url = BASE_URL+"subjects/"+subjectId+"/lectures";
     	return this.postMedia(url, this.lectureClass, lecture, file);
     }
@@ -499,7 +500,7 @@ public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,
     }
     
     @Override
-    public M postFile(String folderId, java.io.File file){
+    public M postFile(String folderId, java.io.File file) throws IOException{
     	String url = BASE_URL+"folders/"+folderId+"/files";
     	return this.postMedia(url, this.fileClass, file);
     }
