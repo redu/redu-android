@@ -121,6 +121,9 @@ public class ScribeHttpClient extends HttpClient {
 		MultipartRequest request = new MultipartRequest(url, this.accesToken.getToken());
 		request.setEntity(entity);
 		Response r = request.send();
+		if (r.getCode() != 201){
+			throw new IOException();
+		}
 		Log.i("RESPONSE", Integer.toString(r.getCode()));
 		return r.getBody();
 	}
@@ -132,6 +135,9 @@ public class ScribeHttpClient extends HttpClient {
 		MultipartRequest request = new MultipartRequest(url, this.accesToken.getToken());
 		request.setEntity(entity);
 		Response r = request.send();
+		if (r.getCode() != 201){
+			throw new IOException();
+		}
 		Log.i("RESPONSE", Integer.toString(r.getCode()));
 		return r.getBody();
 	}
