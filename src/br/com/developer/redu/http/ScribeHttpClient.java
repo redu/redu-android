@@ -114,6 +114,7 @@ public class ScribeHttpClient extends HttpClient {
 		Log.i("FileNAME", file.getAbsolutePath());
 		Log.i("FileNAME", file.getCanonicalPath());
 		Log.i("FileNAME", file.getParent());
+		Log.i("TOKEN", this.accesToken.getToken());
 
 		entity.addPart("lecture[media]", file, URLConnection.guessContentTypeFromName(file.getName()));
 		entity.addPart("lecture[name]", lecture.name);

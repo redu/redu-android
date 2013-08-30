@@ -4,10 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.protocol.HTTP;
 
 
 public class Entity {
@@ -18,7 +20,7 @@ public class Entity {
 	}
 
 	public void addPart(String key, String stringBody) throws UnsupportedEncodingException {
-		this.entity.addPart(key, new StringBody(stringBody));
+		this.entity.addPart(key, new StringBody(stringBody, Charset.forName(HTTP.UTF_8)));
 	}
 
 	public String getContentType() {
