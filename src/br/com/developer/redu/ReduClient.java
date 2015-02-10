@@ -8,16 +8,14 @@ import java.util.Map;
 
 import org.scribe.exceptions.OAuthConnectionException;
 
-import android.graphics.Paint.Join;
-import android.util.Log;
 import br.com.developer.redu.api.Redu;
 import br.com.developer.redu.http.ArgPair;
 import br.com.developer.redu.http.HttpClient;
 import br.com.developer.redu.http.ScribeHttpClient;
+import br.com.developer.redu.http.ServerInfo;
 import br.com.developer.redu.models.CoursePayload;
 import br.com.developer.redu.models.EnrollmentPayload;
 import br.com.developer.redu.models.EnvironmentPayload;
-import br.com.developer.redu.models.File;
 import br.com.developer.redu.models.Folder;
 import br.com.developer.redu.models.FolderPayload;
 import br.com.developer.redu.models.Lecture;
@@ -51,7 +49,8 @@ import com.google.gson.Gson;
 public abstract class ReduClient<A,B,C,D,E,F,G,H,I,J,L,M,N> implements Redu<A,B,C,D,E,F,G,H,I,J,L,M,N> {
 
     private HttpClient httpClient;
-    private final String BASE_URL="http://www.redu.com.br/api/";
+	private final String BASE_URL = String.format("http://%s:%s/api/",
+			ServerInfo.getIpAddress(), ServerInfo.getPort());
     private Gson gson;
 
     protected Type userList;
