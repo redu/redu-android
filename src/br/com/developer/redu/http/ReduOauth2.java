@@ -16,7 +16,9 @@ import org.scribe.utils.OAuthEncoder;
 
 public class ReduOauth2 extends DefaultApi20 {
 
-    private static final String AUTHORIZE_URL = "http://www.redu.com.br/oauth/authorize?client_id=%s";
+	private static final String AUTHORIZE_URL = String.format(
+			"http://%s:%s/oauth/authorize?client_id=%%s",
+			ServerInfo.getIpAddress(), ServerInfo.getPort());
 
     @Override
     public Verb getAccessTokenVerb() {
@@ -25,7 +27,9 @@ public class ReduOauth2 extends DefaultApi20 {
 
     @Override
     public String getAccessTokenEndpoint() {
-        return "http://redu.com.br/oauth/token?grant_type=authorization_code";
+		return String.format(
+				"http://%s:%s/oauth/token?grant_type=authorization_code",
+				ServerInfo.getIpAddress(), ServerInfo.getPort());
     }
 
     @Override
